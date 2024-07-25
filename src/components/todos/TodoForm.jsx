@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { TODO_CATEGORY_ICON } from '@/constants/icon'
 
-const TodoForm = ({ onAdd, onClose }) => {
+const TodoForm = ({ onAdd, onClose, todo, children}) => {
+    
+    const [title, setTitle] = useState(todo === undefined ? '' : todo.title);
+    const [summary, setSummary] = useState(todo === undefined ? '' : todo.summary);
+    const [category, setCategory] = useState(todo === undefined ? '' : todo.category);
 
-    const [title, setTitle] = useState('');
-    const [summary, setSummary] = useState('');
-    const [category, setCategory] = useState('TODO');
-    // const [isFormInValid, setIsFormInValid] = useState(false);
+    // const isNewTodoForm = (children) => children.startsWith('New') ? true : false;
 
     const addTodoHandler = () => {
         const newTodo = {title, summary, category};
@@ -23,7 +24,7 @@ const TodoForm = ({ onAdd, onClose }) => {
 
   return (
     <>
-            {/* <h3 className="text-3xl text-red-200">{ children }</h3> */}
+            <h3 className="text-3xl text-red-200">{ children }</h3>
             <form className='my-2'>
                 <div>
                     <label className='block mb-2 text-xl text-white' htmlFor='title'>Title</label>

@@ -1,6 +1,6 @@
-const IconButton = ({icon, textColor}) => {
+const IconButton = ({icon, textColor, onClick}) => {
   return (
-    <button className={`w-8 text-xl font-semibold cursor-pointer ${textColor}`}>
+    <button onClick={onClick} className={`w-8 text-xl font-semibold cursor-pointer ${textColor}`}>
         {icon}
     </button>
   )

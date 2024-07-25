@@ -1,10 +1,11 @@
 import { TODO_CATEGORY_ICON } from '@/constants/icon'
 
-const TodoFilter = () => {
+const TodoFilter = ({changeFilter}) => {
   return (
     <select className="p-2 text-gray-100 bg-gray-800 rounded"
             data-cy="todo-filter"
-            >
+            onChange={changeFilter}
+    >
       {/* defaultValue? - https://react.dev/reference/react-dom/components/select */}
       <option value="all" defaultValue={'1'}>All</option>
       <option value="TODO">{TODO_CATEGORY_ICON.TODO} To do</option>

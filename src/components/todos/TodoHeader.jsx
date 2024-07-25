@@ -6,7 +6,7 @@ import TodoForm from "./TodoForm";
 import { useState } from "react";
 
 // 함수형 컴포넌트(TodoHeader)
-const TodoHeader = ({ onAdd }) => {
+const TodoHeader = ({ onAdd, changeFilter }) => {
   const [openModal, open] = useState(false);
   const closeModal = () => open(false);
 
@@ -26,7 +26,7 @@ const TodoHeader = ({ onAdd }) => {
             New Todo
           </TodoForm>
         </Modal>, document.body)}
-      <TodoFilter />
+        <TodoFilter changeFilter={changeFilter} />
     </div>
   );
 };

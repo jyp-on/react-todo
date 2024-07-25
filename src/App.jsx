@@ -25,11 +25,25 @@ const dummyTodos = [
 ]
 
 function App() {
-  const [todos, setTodos] = useState(dummyTodos)
+  const [todos, setTodos] = useState(dummyTodos);
+  const [filter, setFilter] = useState('All');
 
   const onAdd = ({title, summary, category}) => {
     setTodos([...todos, {id: todos.length + 1, title, summary, category}])
   }
+
+  const onUpdate = (updatedTodo) => {
+    setTodos(
+      todos.map((todo) =>
+      todo.id === updatedTodo.id ? updatedTodo : todo
+    )
+    );
+  };
+
+  const onDelete = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
  
   return (
     <>
@@ -44,7 +58,7 @@ function App() {
         <section className="max-w-xl m-4 mx-auto">
           {/* addTodo라는 이름으로 addTodo 함수를 props로 전달함 */}
           <TodoHeader onAdd={onAdd} />
-          <TodoBody todos={todos}/>
+          <TodoBody todos={todos} onUpdate={onUpdate} onDelete={onDelete}/>
         </section>
       </DefaultLayout>
     </>

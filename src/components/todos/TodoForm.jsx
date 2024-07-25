@@ -1,18 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { TODO_CATEGORY_ICON } from '@/constants/icon'
 
-const TodoForm = ({ onAdd, onClose, todo, children}) => {
+const TodoForm = ({ onAdd, onClose, onUpdate, todo, children}) => {
     
     const [title, setTitle] = useState(todo === undefined ? '' : todo.title);
     const [summary, setSummary] = useState(todo === undefined ? '' : todo.summary);
     const [category, setCategory] = useState(todo === undefined ? '' : todo.category);
 
+    const addOrUpdateTodoHandler = () => {
+        if(todo === undefined) {
+            const newTodo = {title, summary, category};
+            onAdd(newTodo);
+            onClose();
+        } else {
+            const updateTodo = {
+                id: todo.id,
+                title,
+                summary,
+                category
+            }
+
+            onUpdate(updateTodo);
+        }
+
+        onClose();
+    }
+
     // const isNewTodoForm = (children) => children.startsWith('New') ? true : false;
 
     const addTodoHandler = () => {
-        const newTodo = {title, summary, category};
-        onAdd(newTodo);
-        onClose();
+        
     }
     
     const isFormInValid = title === '' || summary === '';
@@ -50,7 +67,9 @@ const TodoForm = ({ onAdd, onClose, todo, children}) => {
                 {isFormInValid && <div className='mt-2 text-red-500'>모든 항목을 채워서 작성해주세요</div>}
                 <div className='flex justify-end gap-4'>
                     <button className='text-xl text-white' type='button' onClick={onClose}>Cancel</button>
-                    <button className='px-6 py-3 text-xl text-red-200' type='button' disabled={isFormInValid} onClick={addTodoHandler}>Add</button>
+                    <button className='px-6 py-3 text-xl text-red-200' type='button' disabled={isFormInValid} onClick={addOrUpdateTodoHandler}>
+                        {todo === undefined ? 'Add' : 'Update'}
+                    </button>
                 </div>
             </form>
         </>
